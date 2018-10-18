@@ -88,6 +88,7 @@ parse_groups() {
 	local dev=$1
 	for group in $(ls results/$dev);
 	do
+		echo $group
 		tests=$(ls tests/$group/??? | cut -d '/' -f 3)
 		for test in $tests;
 		do
@@ -118,9 +119,13 @@ EOF
 
 if [ -r config ]; then
         . config
-else
+fi
+
+if [ -z "$TEST_DEVS" ]; then
         TEST_DEVS=( nodev )
 fi
+
+echo "${TEST_DEVS[@]}"
 
 for dev in ${TEST_DEVS[@]};
 do
