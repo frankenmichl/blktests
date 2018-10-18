@@ -16,9 +16,9 @@ passed() {
 	content="$content
 	<testcase name=\"$group/$test\" time=\"$runtime\" classname=\"$dev/$group/$test\">
 	<system-out>
-        <![CDATA[  
-                   $(cat "${seqres}")
-           ]]>
+<![CDATA[  
+$(cat "${seqres}")
+]]>
 	</system-out>
 	</testcase>"
 }
@@ -44,9 +44,9 @@ failed() {
 	<testcase name=\"$group/$test\" errors=\"1\" time=\"$runtime\" classname=\"$dev/$group/$test\">
 	$errtype
 	<system-out>
-		<![CDATA[
-			$errstr
-		   ]]>
+<![CDATA[
+$errstr
+]]>
 	</system-out>
 	</testcase>"
 
@@ -73,17 +73,19 @@ parse_testresult() {
 	local test=$3
 	local seqres="results/$dev/$group/$test"
 	if [ -f "$seqres" ]; then
-		echo $group/$test
 		status=$(grep "^status" $seqres | cut -f 2)
-	      	runtime=$(grep "^runtime" $seqres  | cut -f 2 | cut -d '.' -f 1)
+	      	runtime=$(grep "^runtime" $seqres  | cut -f 2 )
 		if [ "$status" == "pass" ];
 		then
 			passed $dev $group $test $runtime
+			echo "[PASS] $group/$test"
 		else
 			failed $dev $group $test $runtime
+			echo "[FAIL] $group/test"
 		fi
 	else
 		skipped $dev $group $test
+		echo "[SKIP] $grup/$test"
 	fi
 	
 	
@@ -93,7 +95,6 @@ parse_groups() {
 	local dev=$1
 	for group in $(ls results/$dev);
 	do
-		echo $group
 		tests=$(ls tests/$group/??? | cut -d '/' -f 3)
 		for test in $tests;
 		do
