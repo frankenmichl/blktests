@@ -69,8 +69,7 @@ parse_testresult() {
 	if [ -f "$seqres" ]; then
 		echo $group/$test
 		status=$(grep "^status" $seqres | cut -f 2)
-	      	runtime=$(grep "^runtime" $seqres  | cut -f 2)
-
+	      	runtime=$(grep "^runtime" $seqres  | cut -f 2 | cut -d '.' -f 1)
 		if [ "$status" == "pass" ];
 		then
 			passed $dev $group $test $runtime
@@ -101,9 +100,7 @@ parse_groups() {
 write_report() {
 	local outfile=$1
 	cat <<EOF > "$outfile"
-  <testsuite name="blktests" tests="$total" errors="$errors" skipped="$skipped" hostname="$(hostname)" timestamp="$timestamp">
-    <properties>$properties
-    </properties>
+  <testsuite name="blktests" tests="$total" failures="$errors" skipped="$skipped" hostname="$(hostname)" time="$timestamp">
     $content
   </testsuite>
 EOF
