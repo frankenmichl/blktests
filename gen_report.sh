@@ -14,7 +14,12 @@ passed() {
 	good=$(expr $good + 1)
 	
 	content="$content
-	<testcase name=\"$group/$test\" time=\"$runtime\" classname=\"$dev/$group/$test\"/>"
+	<testcase name=\"$group/$test\" time=\"$runtime\" classname=\"$dev/$group/$test\">"
+	<system-out>
+        <![CDATA[  
+                   $(cat "${seqres}")
+           ]]>
+	</system-out>       
 }
 
 failed() {
@@ -100,7 +105,7 @@ parse_groups() {
 write_report() {
 	local outfile=$1
 	cat <<EOF > "$outfile"
-  <testsuite failures="$errors" name="blktests" tests="1" hostname="$(hostname)" time="$timestamp">
+  <testsuite failures="$failed" name="blktests" tests="$total" errors="$failed" hostname="$(hostname)" time="$timestamp">
     $content
   </testsuite>
 EOF
