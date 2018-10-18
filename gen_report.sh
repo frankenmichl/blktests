@@ -14,12 +14,13 @@ passed() {
 	good=$(expr $good + 1)
 	
 	content="$content
-	<testcase name=\"$group/$test\" time=\"$runtime\" classname=\"$dev/$group/$test\">"
+	<testcase name=\"$group/$test\" time=\"$runtime\" classname=\"$dev/$group/$test\">
 	<system-out>
         <![CDATA[  
                    $(cat "${seqres}")
            ]]>
-	</system-out>       
+	</system-out>
+	</testcase>"
 }
 
 failed() {
