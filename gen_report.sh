@@ -60,7 +60,7 @@ skipped() {
 	skipped=$(expr $skipped + 1)
 	
 	content="$content
-	<testcase name=\"$group/$test\" errors=\"0\" classname=\"$dev/$group\">
+	<testcase name=\"$group/$test\" errors=\"0\" classname=\"$dev/$group\$test>
 	<skipped/>
 	</testcase>"	
 }
@@ -75,6 +75,7 @@ parse_testresult() {
 	if [ -f "$seqres" ]; then
 		status=$(grep "^status" $seqres | cut -f 2)
 	      	runtime=$(grep "^runtime" $seqres  | cut -f 2 )
+		runtime=${runtime%?}
 		if [ "$status" == "pass" ];
 		then
 			passed $dev $group $test $runtime
@@ -85,7 +86,7 @@ parse_testresult() {
 		fi
 	else
 		skipped $dev $group $test
-		echo "[SKIP] $grup/$test"
+		echo "[SKIP] $group/$test"
 	fi
 	
 	
