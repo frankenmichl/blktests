@@ -14,7 +14,7 @@ passed() {
 	good=$(expr $good + 1)
 	
 	content="$content
-		<testcase name=\"$group/$test\" errors=\"0\" time=\"$runtime\" classname=\"$dev/$group\"/>"
+	<testcase name=\"$group/$test\" time=\"$runtime\" classname=\"$dev/$group/$test\"/>"
 }
 
 failed() {
@@ -30,19 +30,19 @@ failed() {
 		errtype="<failure type=\"dmesg\" message=\"$group/$test failed\"/>"
 		errstr=$(cat ${seqres}.dmesg)
 	else
-		errtype="<failure type=\"output\" message=\"$group/$test failed\"/>"		
+		errtype="<failure type=\"output\" message=\"$group/$test failed\"></failure>"		
 		errstr=$(cat "${seqres}.out.bad")
 	fi
 
 	content="$content
-		<testcase name=\"$group/$test\" errors=\"1\" time=\"$runtime\" classname=\"$dev/$group\">
-		$errtype
-		<system-out>
+	<testcase name=\"$group/$test\" errors=\"1\" time=\"$runtime\" classname=\"$dev/$group/$test\">
+	$errtype
+	<system-out>
 		<![CDATA[
-			   $errors
+			$errstr
 		   ]]>
-		</system-out>
-		</testcase>"
+	</system-out>
+	</testcase>"
 
 }
 
