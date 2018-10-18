@@ -100,7 +100,7 @@ parse_groups() {
 write_report() {
 	local outfile=$1
 	cat <<EOF > "$outfile"
-  <testsuite name="blktests" tests="$total" failures="$errors" skipped="$skipped" hostname="$(hostname)" time="$timestamp">
+  <testsuite failures="$errors" name="blktests" tests="1" hostname="$(hostname)" time="$timestamp">
     $content
   </testsuite>
 EOF
