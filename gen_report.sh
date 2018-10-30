@@ -64,7 +64,7 @@ skipped() {
 #	<skipped/>
 #	</testcase>"	
 	content="$content
-	<testcase name=\"$group/$test\" errors=\"0\" classname=\"$dev/$group\$test>
+	<testcase name=\"$group/$test\" errors=\"0\" classname=\"$dev/$group/$test>
 	</testcase>"	
 }
 
