@@ -63,9 +63,9 @@ skipped() {
 #	<testcase name=\"$group/$test\" errors=\"0\" classname=\"$dev/$group\$test>
 #	<skipped/>
 #	</testcase>"	
-	content="$content
-	<testcase name=\"$group/$test\" errors=\"0\" classname=\"$dev/$group/$test>
-	</testcase>"	
+#	content="$content
+#	<testcase name=\"$group/$test\" errors=\"0\" classname=\"$dev/$group/$test>
+#	</testcase>"	
 }
 
 
